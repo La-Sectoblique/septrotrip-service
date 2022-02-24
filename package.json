@@ -1,5 +1,5 @@
 {
-  "name": "septoblique-package",
+  "name": "@la-sectoblique/septoblique-service",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com/La-Sectoblique"
   },
   "dependencies": {
     "axios": "^0.26.0"
