@@ -1,3 +1,8 @@
-export function coucou(): void {
-	console.log("Hello world");
-}
+import { register } from "./user/Login";
+
+
+
+export {
+	// user
+	register
+};
