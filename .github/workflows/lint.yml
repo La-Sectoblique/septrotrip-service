@@ -1,5 +1,8 @@
 name: Lint
 
+env: 
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   pull_request: 
     branches: [ dev, master ]
