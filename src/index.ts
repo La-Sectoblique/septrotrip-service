@@ -1,6 +1,6 @@
 import { register, login } from "./data/user/Login";
+import { addPoint, getUserPoints } from "./data/points/points";
 import { init, params } from "./utils/Config";
-import { p } from "./data/private";
 
 export {
 	// config
@@ -11,6 +11,7 @@ export {
 	register,
 	login,
 
-	
-	p
+	// points
+	addPoint,
+	getUserPoints
 };
