@@ -31,6 +31,7 @@ export async function addPoint(data: Omit<PointInput, "authorId">): Promise<Poin
 
 export async function getUserPoints(): Promise<PointOutput[]> {
 	try {
+		// obligé de faire une copie, sinon le compilateur rale
 		const response = JSON.parse(JSON.stringify(await request("/points", "GET")));
 
 		if(isPointOutputArray(response)) {
