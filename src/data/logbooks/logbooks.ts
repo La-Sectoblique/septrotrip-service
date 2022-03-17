@@ -1,16 +1,16 @@
 import axios from "axios";
 import { request } from "../../utils/Request";
 import InvalidBodyError from "../../types/errors/InvalidBodyError";
-import { isPointOutput, isPointOutputArray, PointInput, PointOutput } from "../../types/models/Point";
 import NoIdProvidedError from "../../types/errors/NoIdProvidedError";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
+import { isLogbookOutput, isLogbookOutputArray, LogbookInput, LogbookOutput } from "../../types/models/Logbook";
 
-export async function addPoint(data: Omit<PointInput, "authorId">): Promise<PointOutput> {
+export async function createLogbook(data: Omit<LogbookInput, "authorId">): Promise<LogbookOutput> {
 
 	try {
-		const response = (await request("/points", "POST", data));
+		const response = (await request("/logbooks", "POST", data));
 
-		if(isPointOutput(response)) {
+		if(isLogbookOutput(response)) {
 			return response;
 		}
 		else {
@@ -29,12 +29,12 @@ export async function addPoint(data: Omit<PointInput, "authorId">): Promise<Poin
 	}
 }
 
-export async function getUserPoints(): Promise<PointOutput[]> {
+export async function getLogbooks(): Promise<LogbookOutput[]> {
 	try {
-		// obligé de faire une copie, sinon le compilateur rale
-		const response = JSON.parse(JSON.stringify(await request("/points", "GET")));
+		// obligé de faire une copie, sinon le compilateur rale     
+		const response = JSON.parse(JSON.stringify(await request("/logbooks", "GET")));
 
-		if(isPointOutputArray(response)) {
+		if(isLogbookOutputArray(response)) {
 			return response;
 		}
 		else {
@@ -46,12 +46,12 @@ export async function getUserPoints(): Promise<PointOutput[]> {
 	}
 }
 
-export async function updatePoint(id: number, data: Partial<PointInput>) {
+export async function updateLogbook(id: number, data: Partial<Omit<LogbookInput, "authorId">>): Promise<LogbookOutput> {
 
 	try {
-		const response = (await request(`/points/${id}`, "PUT", data));
+		const response = (await request(`/logbooks/${id}`, "PUT", data));
 
-		if(isPointOutput(response)) {
+		if(isLogbookOutput(response)) {
 			return response;
 		}
 		else {
@@ -73,12 +73,12 @@ export async function updatePoint(id: number, data: Partial<PointInput>) {
 	}
 }
 
-export async function deletePoint(id: number) {
+export async function getLogbook(id: number): Promise<LogbookOutput> {
 
 	try {
-		const response = (await request(`/points/${id}`, "DELETE"));
+		const response = (await request(`/logbooks/${id}`, "GET"));
 
-		if(isPointOutput(response)) {
+		if(isLogbookOutput(response)) {
 			return response;
 		}
 		else {
@@ -89,9 +89,25 @@ export async function deletePoint(id: number) {
 
 		if(axios.isAxiosError(error)) {
 			if(error.response?.status === 400) {
-				throw { message: error.response?.data.message, code: 400, name: "NoIdProvidedError" } as NoIdProvidedError;
+				throw { message: error.response?.data.message, code: 400, name: "InvalidBodyError" } as InvalidBodyError;
 			}
 			else if (error.response?.status === 404) {
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+			}
+		}
+
+		throw error;	
+	}
+}
+
+export async function deleteLogbook(id: number): Promise<void> {
+
+	try {
+		await request(`/logbooks/${id}`, "DELETE");
+	}
+	catch(error) {
+		if(axios.isAxiosError(error)) {
+			if (error.response?.status === 404) {
 				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
 			}
 		}
