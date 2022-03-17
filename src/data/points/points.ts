@@ -46,7 +46,7 @@ export async function getUserPoints(): Promise<PointOutput[]> {
 	}
 }
 
-export async function updatePoint(id: number, data: PointInput) {
+export async function updatePoint(id: number, data: Partial<PointInput>) {
 
 	try {
 		const response = (await request(`/points/${id}`, "PUT", data));

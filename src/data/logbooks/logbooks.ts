@@ -46,7 +46,7 @@ export async function getLogbooks(): Promise<LogbookOutput[]> {
 	}
 }
 
-export async function updateLogbook(id: number, data: Omit<LogbookInput, "authorId">): Promise<LogbookOutput> {
+export async function updateLogbook(id: number, data: Partial<Omit<LogbookInput, "authorId">>): Promise<LogbookOutput> {
 
 	try {
 		const response = (await request(`/logbooks/${id}`, "PUT", data));
@@ -100,33 +100,18 @@ export async function getLogbook(id: number): Promise<LogbookOutput> {
 	}
 }
 
-export async function deleteLogbook(id: number) {
+export async function deleteLogbook(id: number): Promise<void> {
 
-	id;
+	try {
+		await request(`/logbooks/${id}`, "DELETE");
+	}
+	catch(error) {
+		if(axios.isAxiosError(error)) {
+			if (error.response?.status === 404) {
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+			}
+		}
 
-	throw new Error("Not yet implemented héhé");
-
-	// try {
-	// 	const response = (await request(`/points/${id}`, "DELETE"));
-
-	// 	if(isPointOutput(response)) {
-	// 		return response;
-	// 	}
-	// 	else {
-	// 		throw new Error(JSON.stringify(response));
-	// 	}
-	// }
-	// catch(error) {
-
-	// 	if(axios.isAxiosError(error)) {
-	// 		if(error.response?.status === 400) {
-	// 			throw { message: error.response?.data.message, code: 400, name: "NoIdProvidedError" } as NoIdProvidedError;
-	// 		}
-	// 		else if (error.response?.status === 404) {
-	// 			throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
-	// 		}
-	// 	}
-
-	// 	throw error;	
-	// }
+		throw error;	
+	}
 }
