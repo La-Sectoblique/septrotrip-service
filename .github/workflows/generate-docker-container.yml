@@ -1,8 +1,9 @@
-name: Build and publish
+name: Doc
 
 env: 
   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 on: 
   push:
