@@ -13,7 +13,8 @@
   "scripts": {
     "lint": "eslint src",
     "prepublish": "eslint src && tsc",
-    "build": "eslint src && tsc"
+    "build": "eslint src && tsc",
+    "doc": "typedoc --out docs src"
   },
   "license": "MIT",
   "publishConfig": {
@@ -26,6 +27,8 @@
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",
+    "typedoc": "^0.22.13",
+    "typedoc-plugin-missing-exports": "^0.22.6",
     "typescript": "^4.5.5"
   }
 }

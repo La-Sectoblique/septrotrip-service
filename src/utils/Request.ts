@@ -2,6 +2,14 @@ import axios, { AxiosResponse, Method } from "axios";
 import InvalidTokenError from "../types/errors/InvalidTokenError";
 import { params } from "./Config";
 
+/**
+ * Effectue une requête à l'API septotrip et gère le token
+ * 
+ * @param url chemin à appeler
+ * @param method methode de l'appel
+ * @param data données a envoyer
+ * @returns résultat de la requête 
+ */
 export async function request(url: string, method: Method, data?: object): Promise<AxiosResponse<unknown, unknown>> {
 
 	try {
