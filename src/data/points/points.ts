@@ -64,7 +64,7 @@ export async function getUserPoints(tripId: number): Promise<PointOutput[]> {
  * @param data nouvelles données
  * @returns le point modifié
  */
-export async function updatePoint(tripId: number, pointId: number, data: Partial<PointInput>) {
+export async function updatePoint(tripId: number, pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
 
 	try {
 		const response = (await request(`/trips/${tripId}/points${pointId}`, "PUT", data));
