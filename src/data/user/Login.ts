@@ -2,13 +2,19 @@ import axios from "axios";
 import { request } from "../../utils/Request";
 import InvalidBodyError from "../../types/errors/InvalidBodyError";
 import { ApiResponse, isApiResponse, isSuccessLoginResponse, SuccessLoginResponse } from "../../types/utils/Api";
-import { Credentials } from "../../types/utils/Credentials";
+import { LoginCredentials, RegisterCredentials } from "../../types/utils/Credentials";
 import RessourceAlreadyExistError from "../../types/errors/RessourceAlreadyExistError";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
 import InvalidPasswordError from "../../types/errors/InvalidPasswordError";
 import { params } from "../..";
 
-export async function register(data: Credentials): Promise<ApiResponse> {
+/**
+ * S'inscrire au service Septotrip
+ *  
+ * @param data informations d'inscription 
+ * @returns 
+ */
+export async function register(data: RegisterCredentials): Promise<ApiResponse> {
 
 	try {
 		const response = (await request("/register", "POST", data));
@@ -35,7 +41,13 @@ export async function register(data: Credentials): Promise<ApiResponse> {
 	}
 }
 
-export async function login(data: Credentials): Promise<SuccessLoginResponse> {
+/**
+ * Se connecte au service Septotrip
+ *  
+ * @param data informations de connexion
+ * @returns informations de connexion (token, adresse email, session)
+ */
+export async function login(data: LoginCredentials): Promise<SuccessLoginResponse> {
 	try {
 		const response = (await request("/login", "POST", data));
 
