@@ -1,7 +1,8 @@
 import { register, login } from "./data/user/Login";
-import { addPoint, getUserPoints, deletePoint, updatePoint } from "./data/points/points";
+import { addPoint, getStepPoints, deletePoint, updatePoint } from "./data/points/points";
 import { createLogbook, deleteLogbook, getLogbook, updateLogbook, getTripLogbooks, getUserLogbooks } from "./data/logbooks/logbooks";
 import { addLogbookEntry, getLogbookEntries } from "./data/logbooks/logbookEntries";
+import { addStep, deleteStep, getStepById, getTripSteps, updateStep } from "./data/trips/step";
 import { addTravelerToTrip, createTrip, deleteTrip, getAllPublicTrips, getTravelers, getTripById, getUserTrips, removeTraveler, updateTrip } from "./data/trips/trips";
 import { init, params } from "./utils/Config";
 
@@ -16,9 +17,16 @@ export {
 
 	// points
 	addPoint,
-	getUserPoints,
+	getStepPoints,
 	updatePoint,
 	deletePoint,
+
+	// step
+	addStep,
+	deleteStep,
+	getStepById, 
+	getTripSteps, 
+	updateStep,
 
 	// logbooks
 	createLogbook,

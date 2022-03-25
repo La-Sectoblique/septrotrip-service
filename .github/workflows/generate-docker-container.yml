@@ -39,3 +39,15 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: septotrip.com
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          docker-compose -f docker-compose.prod.yml pull doc
+          docker-compose -f docker-compose.prod.yml stop doc
+          docker-compose -f docker-compose.prod.yml rm -f doc
+          docker-compose -f docker-compose.prod.yml --env-file ./.env up -d doc
