@@ -7,14 +7,14 @@ import InexistantResourceError from "../../types/errors/InexistantResourceError"
 
 /**
  * Ajoute un point d'intéret sur la carte
- * @param tripId identifiant du voyage
+ * @param stepId identifiant de l'étape
  * @param data données du point
  * @returns le point qui a été créé
  */
-export async function addPoint(tripId: number, data: Omit<PointInput, "authorId" | "tripId">): Promise<PointOutput> {
+export async function addPoint(stepId: number, data: Omit<PointInput, "authorId" | "stepId">): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/trips/${tripId}/points`, "POST", data));
+		const response = (await request(`/trips/${stepId}/points`, "POST", data));
 
 		if(isPointOutput(response)) {
 			return response;
@@ -37,13 +37,13 @@ export async function addPoint(tripId: number, data: Omit<PointInput, "authorId"
 
 /**
  * Retourne tout les points créé par l'utilisateur lors de ce voyage
- * @param tripId identifiant du voyage
+ * @param stepId identifiant de l'étape
  * @returns points créé par l'utilisateur lors de ce voyage
  */
-export async function getUserPoints(tripId: number): Promise<PointOutput[]> {
+export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 	try {
 		// obligé de faire une copie, sinon le compilateur rale
-		const response = JSON.parse(JSON.stringify(await request(`/trips/${tripId}/points`, "GET")));
+		const response = JSON.parse(JSON.stringify(await request(`/trips/${stepId}/points`, "GET")));
 
 		if(isPointOutputArray(response)) {
 			return response;
@@ -59,15 +59,15 @@ export async function getUserPoints(tripId: number): Promise<PointOutput[]> {
 
 /**
  * Modifie un point
- * @param tripId identifiant du voyage
+ * @param stepId identifiant de l'étape
  * @param pointId identifiant du point
  * @param data nouvelles données
  * @returns le point modifié
  */
-export async function updatePoint(tripId: number, pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
+export async function updatePoint(stepId: number, pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/trips/${tripId}/points${pointId}`, "PUT", data));
+		const response = (await request(`/trips/${stepId}/points${pointId}`, "PUT", data));
 
 		if(isPointOutput(response)) {
 			return response;
@@ -93,14 +93,14 @@ export async function updatePoint(tripId: number, pointId: number, data: Partial
 
 /**
  * Supprime un point
- * @param tripId identifiant du voyage
+ * @param stepId identifiant de l'étape
  * @param pointId identifiant du point
  * @returns 
  */
-export async function deletePoint(tripId: number, pointId: number) {
+export async function deletePoint(stepId: number, pointId: number) {
 
 	try {
-		const response = (await request(`/trips/${tripId}/points${pointId}`, "DELETE"));
+		const response = (await request(`/trips/${stepId}/points${pointId}`, "DELETE"));
 
 		if(isPointOutput(response)) {
 			return response;
