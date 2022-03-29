@@ -59,15 +59,14 @@ export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 
 /**
  * Modifie un point
- * @param stepId identifiant de l'étape
  * @param pointId identifiant du point
  * @param data nouvelles données
  * @returns le point modifié
  */
-export async function updatePoint(stepId: number, pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
+export async function updatePoint(pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/steps/${stepId}/points${pointId}`, "PUT", data));
+		const response = (await request(`/points${pointId}`, "PUT", data));
 
 		if(isPointOutput(response)) {
 			return response;
@@ -93,14 +92,13 @@ export async function updatePoint(stepId: number, pointId: number, data: Partial
 
 /**
  * Supprime un point
- * @param stepId identifiant de l'étape
  * @param pointId identifiant du point
  * @returns 
  */
-export async function deletePoint(stepId: number, pointId: number) {
+export async function deletePoint(pointId: number) {
 
 	try {
-		const response = (await request(`/steps/${stepId}/points${pointId}`, "DELETE"));
+		const response = (await request(`/points${pointId}`, "DELETE"));
 
 		if(isPointOutput(response)) {
 			return response;
