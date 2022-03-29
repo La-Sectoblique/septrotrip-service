@@ -66,7 +66,7 @@ export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 export async function updatePoint(pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/points${pointId}`, "PUT", data));
+		const response = (await request(`/points/${pointId}`, "PUT", data));
 
 		if(isPointOutput(response)) {
 			return response;
