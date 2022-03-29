@@ -98,7 +98,7 @@ export async function updatePoint(pointId: number, data: Partial<PointInput>): P
 export async function deletePoint(pointId: number) {
 
 	try {
-		const response = (await request(`/points${pointId}`, "DELETE"));
+		const response = (await request(`/points/${pointId}`, "DELETE"));
 
 		if(isPointOutput(response)) {
 			return response;
