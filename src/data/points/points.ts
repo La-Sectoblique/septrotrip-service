@@ -14,7 +14,7 @@ import InexistantResourceError from "../../types/errors/InexistantResourceError"
 export async function addPoint(stepId: number, data: Omit<PointInput, "authorId" | "stepId">): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/trips/${stepId}/points`, "POST", data));
+		const response = (await request(`/steps/${stepId}/points`, "POST", data));
 
 		if(isPointOutput(response)) {
 			return response;
@@ -43,7 +43,7 @@ export async function addPoint(stepId: number, data: Omit<PointInput, "authorId"
 export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 	try {
 		// obligé de faire une copie, sinon le compilateur rale
-		const response = JSON.parse(JSON.stringify(await request(`/trips/${stepId}/points`, "GET")));
+		const response = JSON.parse(JSON.stringify(await request(`/steps/${stepId}/points`, "GET")));
 
 		if(isPointOutputArray(response)) {
 			return response;
@@ -67,7 +67,7 @@ export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 export async function updatePoint(stepId: number, pointId: number, data: Partial<PointInput>): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/trips/${stepId}/points${pointId}`, "PUT", data));
+		const response = (await request(`/steps/${stepId}/points${pointId}`, "PUT", data));
 
 		if(isPointOutput(response)) {
 			return response;
@@ -100,7 +100,7 @@ export async function updatePoint(stepId: number, pointId: number, data: Partial
 export async function deletePoint(stepId: number, pointId: number) {
 
 	try {
-		const response = (await request(`/trips/${stepId}/points${pointId}`, "DELETE"));
+		const response = (await request(`/steps/${stepId}/points${pointId}`, "DELETE"));
 
 		if(isPointOutput(response)) {
 			return response;
