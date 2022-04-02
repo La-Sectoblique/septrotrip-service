@@ -7,6 +7,7 @@ import RessourceAlreadyExistError from "../../types/errors/RessourceAlreadyExist
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
 import InvalidPasswordError from "../../types/errors/InvalidPasswordError";
 import { params } from "../..";
+import { isUserOutput, UserOutput } from "../../types/models/User";
 
 /**
  * S'inscrire au service Septotrip
@@ -77,5 +78,25 @@ export async function login(data: LoginCredentials): Promise<SuccessLoginRespons
 		}
 
 		throw error;	
+	}
+}
+
+/**
+ * Retourne les informations de l'utilisateur
+ * @returns les informations de l'utilisateur
+ */
+export async function me(): Promise<UserOutput> {
+	try {
+		const response = await request("/me", "GET");
+
+		if(isUserOutput(response)) {
+			return response;
+		} 
+		else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+		throw error;
 	}
 }
