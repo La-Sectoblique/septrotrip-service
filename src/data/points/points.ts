@@ -36,9 +36,9 @@ export async function addPoint(stepId: number, data: Omit<PointInput, "authorId"
 }
 
 /**
- * Retourne tout les points créé par l'utilisateur lors de ce voyage
+ * Retourne tout les points crésé lors de ce voyage pour cet étape
  * @param stepId identifiant de l'étape
- * @returns points créé par l'utilisateur lors de ce voyage
+ * @returns points créés lors de ce voyage pour cet étape
  */
 export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 	try {
@@ -57,6 +57,32 @@ export async function getStepPoints(stepId: number): Promise<PointOutput[]> {
 	}
 }
 
+/**
+ * Retourne tout les points créés lors de ce voyage
+ * @param tripId identifiant du voyage
+ * @returns points créés lors de ce voyage 
+ */
+export async function getTripPoints(tripId: number): Promise<PointOutput[]> {
+	try {
+		const response = JSON.parse(JSON.stringify(await request(`/trips/${tripId}/points`, "GET")));
+
+		if(isPointOutputArray(response)) {
+			return response;
+		} else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+		if(axios.isAxiosError(error)) {
+			if(error.response?.status === 400) 
+				throw { message: error.response?.data.message, code: 400, name: "NoIdProvidedError" } as NoIdProvidedError;
+			if(error.response?.status === 404)
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+		}
+
+		throw error;
+	}
+}
 /**
  * Modifie un point
  * @param pointId identifiant du point

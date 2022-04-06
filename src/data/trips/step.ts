@@ -1,6 +1,7 @@
 import axios from "axios";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
 import InvalidBodyError from "../../types/errors/InvalidBodyError";
+import { DayOutput, isDayOuputArray } from "../../types/models/Day";
 import { isStepOutput, StepInput, StepOutput, isStepOutputArray } from "../../types/models/Step";
 import { request } from "../../utils/Request";
 
@@ -147,4 +148,33 @@ export async function deleteStep(stepId: number): Promise<void> {
 
 		throw error;	
 	}
+}
+
+/**
+ * Obtient tout les jours d'une étape
+ * @param stepId identifiant de l'étape
+ * @returns tous les jours de l'étape
+ */
+export async function getStepDays(stepId: number): Promise<DayOutput[]> {
+	try {
+		const response = JSON.parse(JSON.stringify(await request(`/steps/${stepId}/days`, "GET")));
+
+		if(isDayOuputArray(response)) {
+			return response;
+		}
+		else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+
+		if(axios.isAxiosError(error)) {
+			if(error.response?.status === 404) {
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+			}
+		}
+
+		throw error;
+	}
+
 }
