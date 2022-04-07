@@ -5,6 +5,7 @@ import { addLogbookEntry, getLogbookEntries, deleteLogbookEntry, getLogbookEntry
 import { addStep, deleteStep, getStepById, getTripSteps, updateStep, getStepDays } from "./data/trips/step";
 import { addTravelerToTrip, createTrip, deleteTrip, getAllPublicTrips, getTravelers, getTripById, getUserTrips, removeTraveler, updateTrip } from "./data/trips/trips";
 import { getDayByID, getPointsByDay, updateDay } from "./data/points/days";
+import { getPathById, getPathToNextStep, getPathToPreviousStep, updatePath } from "./data/trips/path";
 import { init, params } from "./utils/Config";
 
 export {
@@ -61,4 +62,10 @@ export {
 	// days
 	getDayByID,
 	updateDay,
+
+	// path
+	getPathById,
+	getPathToNextStep,
+	getPathToPreviousStep,
+	updatePath
 };
