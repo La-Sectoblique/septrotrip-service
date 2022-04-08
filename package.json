@@ -21,7 +21,8 @@
     "registry": "https://npm.pkg.github.com/La-Sectoblique"
   },
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.0",
+    "mime-types": "^2.1.35"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.1",

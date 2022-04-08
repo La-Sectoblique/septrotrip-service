@@ -4,6 +4,7 @@ import InvalidBodyError from "../../types/errors/InvalidBodyError";
 import { isPointOutput, isPointOutputArray, PointInput, PointOutput } from "../../types/models/Point";
 import NoIdProvidedError from "../../types/errors/NoIdProvidedError";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
+import { isApiResponse } from "../../types/utils/Api";
 
 /**
  * Ajoute un point d'intéret sur la carte
@@ -126,7 +127,7 @@ export async function deletePoint(pointId: number) {
 	try {
 		const response = (await request(`/points/${pointId}`, "DELETE"));
 
-		if(isPointOutput(response)) {
+		if(isApiResponse(response)) {
 			return response;
 		}
 		else {

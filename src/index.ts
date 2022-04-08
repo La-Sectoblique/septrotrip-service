@@ -6,12 +6,22 @@ import { addStep, deleteStep, getStepById, getTripSteps, updateStep, getStepDays
 import { addTravelerToTrip, createTrip, deleteTrip, getAllPublicTrips, getTravelers, getTripById, getUserTrips, removeTraveler, updateTrip } from "./data/trips/trips";
 import { getDayByID, getPointsByDay, updateDay } from "./data/points/days";
 import { getPathById, getPathToNextStep, getPathToPreviousStep, updatePath } from "./data/trips/path";
+import { uploadFile } from "./data/trips/file";
+
 import { init, params } from "./utils/Config";
+import Platform from "./utils/Platform";
+import { generateFormData } from "./utils/Body"; 
 
 export {
 	// config
 	init,
 	params,
+
+	// platform
+	Platform,
+
+	// body
+	generateFormData,
 
 	// user
 	register,
@@ -67,5 +77,8 @@ export {
 	getPathById,
 	getPathToNextStep,
 	getPathToPreviousStep,
-	updatePath
+	updatePath,
+
+	// file
+	uploadFile
 };
