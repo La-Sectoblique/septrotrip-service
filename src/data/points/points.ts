@@ -8,14 +8,14 @@ import { isApiResponse } from "../../types/utils/Api";
 
 /**
  * Ajoute un point d'intéret sur la carte
- * @param stepId identifiant de l'étape
+ * @param tripId identifiant de l'étape
  * @param data données du point
  * @returns le point qui a été créé
  */
-export async function addPoint(stepId: number, data: Omit<PointInput, "authorId" | "stepId">): Promise<PointOutput> {
+export async function addPoint(tripId: number, data: Omit<PointInput, "authorId" | "tripId">): Promise<PointOutput> {
 
 	try {
-		const response = (await request(`/steps/${stepId}/points`, "POST", data));
+		const response = (await request(`/trips/${tripId}/points`, "POST", data));
 
 		if(isPointOutput(response)) {
 			return response;
