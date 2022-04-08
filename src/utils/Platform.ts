@@ -1,5 +1,5 @@
 enum Platform {
-	NAVIGATOR,
+	BROWSER,
 	MOBILE,
 	OTHER
 }
