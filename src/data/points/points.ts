@@ -14,6 +14,7 @@ import { isApiResponse } from "../../types/utils/Api";
  */
 export async function addPoint(tripId: number, data: Omit<PointInput, "authorId" | "tripId">): Promise<PointOutput> {
 
+	
 	try {
 		const response = (await request(`/trips/${tripId}/points`, "POST", data));
 
