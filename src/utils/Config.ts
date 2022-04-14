@@ -1,4 +1,5 @@
 import axios from "axios";
+import Platform from "./Platform";
 
 /**
  * Contient toutes les informations dont a besoin le package pour fonctionner
@@ -12,13 +13,17 @@ export interface InitParameters {
 	 */
 	url: string;
 	/**
+	 * La plateform sur laquelle tourne le projet
+	 */
+	platform: Platform;
+	/**
 	 * La fonction chargée de stocker le token d'authentification dans la mémoire
 	 */
-	storeToken: (token: string) => Promise<void> | void,
+	storeToken: (token: string) => Promise<void> | void;
 	/**
 	 * La fonction permettant de récupérer le token d'authentification
 	 */
-	getToken: () => Promise<string> | string
+	getToken: () => Promise<string> | string;
 }
 
 /**
