@@ -1,4 +1,4 @@
-import { FileFormat, GeneralBodyFormat, isFileFormat } from "../types/utils/FormData";
+import { FileFormat, GeneralBodyFormat, isFileFormat } from "../utils/FormData";
 
 export function generateFormData(data: GeneralBodyFormat): FormData {
 

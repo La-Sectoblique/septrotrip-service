@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, Method } from "axios";
 import InvalidTokenError from "../types/errors/InvalidTokenError";
-import { GeneralBodyFormat } from "../types/utils/FormData";
+import { GeneralBodyFormat } from "../utils/FormData";
 import { generateFormData } from "./Body";
 import { params } from "./Config";
 
