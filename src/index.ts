@@ -1,7 +1,6 @@
 import { register, login } from "./data/user/Login";
 import { addPoint, getStepPoints, deletePoint, updatePoint, getTripPoints } from "./data/points/points";
-import { createLogbook, deleteLogbook, getLogbook, updateLogbook, getTripLogbooks, getUserLogbooks } from "./data/logbooks/logbooks";
-import { addLogbookEntry, getLogbookEntries, deleteLogbookEntry, getLogbookEntry, updateLogbookEntry } from "./data/logbooks/logbookEntries";
+import { createLogbookEntry, deleteLogbookEntry, getLogbookEntry, getTripLogbookEntries, updateLogbookEntry } from "./data/logbooks/logbookEntries";
 import { addStep, deleteStep, getStepById, getTripSteps, updateStep, getStepDays } from "./data/trips/step";
 import { addTravelerToTrip, createTrip, deleteTrip, getAllPublicTrips, getTravelers, getTripById, getUserTrips, removeTraveler, updateTrip } from "./data/trips/trips";
 import { getDayByID, getPointsByDay, updateDay } from "./data/points/days";
@@ -43,17 +42,9 @@ export {
 	updateStep,
 	getStepDays,
 
-	// logbooks
-	createLogbook,
-	deleteLogbook,
-	getLogbook,
-	updateLogbook,
-	getTripLogbooks,
-	getUserLogbooks,
-
 	// logbook entries
-	addLogbookEntry,
-	getLogbookEntries,
+	createLogbookEntry,
+	getTripLogbookEntries,
 	deleteLogbookEntry,
 	getLogbookEntry,
 	updateLogbookEntry,

@@ -5,14 +5,14 @@ import { isLogbookEntryOutput, isLogbookEntryOutputArray, LogbookEntryInput, Log
 import { request } from "../../utils/Request";
 
 /**
- * Ajoute une entrée dans un journal
+ * Ajoute une entrée dans le journal du voyage
  * @param data données de l'entrée
  * @returns l'entrée créé
  */
-export async function addLogbookEntry(data: LogbookEntryInput): Promise<LogbookEntryOutput> {
+export async function createLogbookEntry(data: LogbookEntryInput): Promise<LogbookEntryOutput> {
 
 	try {
-		const response = (await request(`/logbooks/${data.logbookId}/entries`, "POST", data));
+		const response = (await request(`/trips/${data.tripId}/logbook`, "POST", data));
 
 		if(isLogbookEntryOutput(response)) {
 			return response;
@@ -38,12 +38,12 @@ export async function addLogbookEntry(data: LogbookEntryInput): Promise<LogbookE
 
 /**
  * Retourne toutes les entrées d'un journal
- * @param id identifiant du journal
+ * @param tripId identifiant du voyage
  * @returns entrées du journal
  */
-export async function getLogbookEntries(id: number): Promise<LogbookEntryOutput[]>  {
+export async function getTripLogbookEntries(tripId: number): Promise<LogbookEntryOutput[]>  {
 	try {
-		const response = JSON.parse(JSON.stringify(await request(`/logbooks/${id}/entries`, "GET")));
+		const response = JSON.parse(JSON.stringify(await request(`/trips/${tripId}/logbook`, "GET")));
 
 		if(isLogbookEntryOutputArray(response)) {
 			return response;
@@ -66,13 +66,12 @@ export async function getLogbookEntries(id: number): Promise<LogbookEntryOutput[
 
 /**
  * Retourne une entrée de journal spécifique
- * @param logbookId identifiant du journal
  * @param entryId identifiant de l'entrée
  * @returns entrée du journal
  */
-export async function getLogbookEntry(logbookId: number, entryId: number): Promise<LogbookEntryOutput> {
+export async function getLogbookEntry(entryId: number): Promise<LogbookEntryOutput> {
 	try {
-		const response = JSON.parse(JSON.stringify(await request(`/logbooks/${logbookId}/entries/${entryId}`, "GET")));
+		const response = JSON.parse(JSON.stringify(await request(`/logbook/${entryId}`, "GET")));
 
 		if(isLogbookEntryOutput(response)) {
 			return response;
@@ -95,14 +94,13 @@ export async function getLogbookEntry(logbookId: number, entryId: number): Promi
 
 /**
  * Met a jour les données d'une entrée 
- * @param logbookId identifiant du journal
  * @param entryId identifiant de l'entrée
  * @param data données de l'entrée
  * @returns l'entrée modifiée
  */
-export async function updateLogbookEntry(logbookId: number, entryId: number, data: Partial<Omit<LogbookEntryInput, "logbookId">>): Promise<LogbookEntryOutput> {
+export async function updateLogbookEntry(entryId: number, data: Partial<LogbookEntryInput>): Promise<LogbookEntryOutput> {
 	try {
-		const response = JSON.parse(JSON.stringify(await request(`/logbooks/${logbookId}/entries/${entryId}`, "PUT", data)));
+		const response = JSON.parse(JSON.stringify(await request(`/logbook/${entryId}`, "PUT", data)));
 
 		if(isLogbookEntryOutput(response)) {
 			return response;
@@ -128,12 +126,11 @@ export async function updateLogbookEntry(logbookId: number, entryId: number, dat
 
 /**
  * Supprime une entrée du journal
- * @param logbookId identifiant du journal
  * @param entryId identifiant de l'entrée
  */
-export async function deleteLogbookEntry(logbookId: number, entryId: number): Promise<void> {
+export async function deleteLogbookEntry(entryId: number): Promise<void> {
 	try {
-		await request(`/logbooks/${logbookId}/entries/${entryId}`, "DELETE");
+		await request(`/logbook/${entryId}`, "DELETE");
 	}
 	catch(error) {
 
