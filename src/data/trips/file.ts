@@ -5,7 +5,6 @@ import { FileFormat, GeneralBodyFormat } from "../../utils/FormData";
 import { upload } from "../../utils/Request";
 
 
-
 export async function uploadFile(metadata: FileMetadataInput, data: FileFormat): Promise<FileMetadataOutput> {
 	try {
 		const response = await upload(`/trips/${metadata.tripId}/file`, "POST", { file: data, ...metadata } as GeneralBodyFormat);
