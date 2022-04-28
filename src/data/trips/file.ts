@@ -1,9 +1,8 @@
 import axios from "axios";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
 import { FileMetadataInput, FileMetadataOutput, isFileMetadataOuput } from "../../types/models/File";
-import { FileFormat, GeneralBodyFormat } from "../../types/utils/FormData";
+import { FileFormat, GeneralBodyFormat } from "../../utils/FormData";
 import { upload } from "../../utils/Request";
-
 
 
 export async function uploadFile(metadata: FileMetadataInput, data: FileFormat): Promise<FileMetadataOutput> {
