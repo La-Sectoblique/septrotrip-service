@@ -1,4 +1,5 @@
 import axios from "axios";
+import { log } from "./Log";
 import Platform from "./Platform";
 
 /**
@@ -16,6 +17,10 @@ export interface InitParameters {
 	 * La plateform sur laquelle tourne le projet
 	 */
 	platform: Platform;
+	/**
+	 * Le contexte dans lequel est utilisé la librairie
+	 */
+	context: "production" | "development" | "debug"
 	/**
 	 * La fonction chargée de stocker le token d'authentification dans la mémoire
 	 */
@@ -41,4 +46,5 @@ export async function init(payload: InitParameters) {
 	axios.defaults.headers.common.Authorization = `Bearer ${await payload.getToken()}`;
 
 	params = payload; 
+	log("Config loaded", "init()");
 }
