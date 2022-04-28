@@ -3,6 +3,7 @@ import InvalidTokenError from "../types/errors/InvalidTokenError";
 import { GeneralBodyFormat } from "../utils/FormData";
 import { generateFormData } from "./Body";
 import { params } from "./Config";
+import { log } from "./Log";
 
 /**
  * Effectue une requête à l'API septotrip et gère le token
@@ -13,6 +14,12 @@ import { params } from "./Config";
  * @returns résultat de la requête 
  */
 export async function request(url: string, method: Method, data?: object): Promise<AxiosResponse<unknown, unknown>> {
+
+	log(`${method} ${url}`, "request()");
+
+	if(data) {
+		log(`data : ${JSON.stringify(data)}`, "request()");
+	}
 
 	try {
 		const response = await axios.request({
@@ -51,10 +58,17 @@ export async function request(url: string, method: Method, data?: object): Promi
  * @returns résultat de la requete
  */
 export async function upload(url: string, method: Method, data: FormData | object): Promise<AxiosResponse<unknown, unknown>> {
+
+	log(`${method} ${url}`, "upload()");
+
 	try {
 
 		if(typeof data === "object") {
 			data = generateFormData(data as GeneralBodyFormat);
+		}
+
+		if(data) {
+			log(`data : ${data}`, "upload()");
 		}
 
 		const response = await axios.request({
