@@ -4,6 +4,7 @@ import { createLogbookEntry, deleteLogbookEntry, getLogbookEntry, getTripLogbook
 import { addStep, deleteStep, getStepById, getTripSteps, updateStep, getStepDays } from "./data/trips/step";
 import { addTravelerToTrip, createTrip, deleteTrip, getAllPublicTrips, getTravelers, getTripById, getUserTrips, removeTraveler, updateTrip } from "./data/trips/trips";
 import { getDayByID, getPointsByDay, updateDay } from "./data/points/days";
+import { addTodoEntry, deleteTodoEntry, getTodoEntriesByTripId, getTodoEntryById, updateTodoEntry } from "./data/todo/todo";
 import { getPathById, getPathToNextStep, getPathToPreviousStep, updatePath } from "./data/trips/path";
 import { deleteSpent, getSpentBeneficiaries, getSpentById, getSpentByTrip, newSpent, updateSpent, updateSpentBeneficiaries } from "./data/spents/spent";
 import { uploadFile } from "./data/trips/file";
@@ -79,6 +80,13 @@ export {
 	newSpent, 
 	updateSpent, 
 	updateSpentBeneficiaries,
+
+	// todo
+	addTodoEntry,
+	deleteTodoEntry,
+	getTodoEntriesByTripId,
+	getTodoEntryById,
+	updateTodoEntry,
 
 	// file
 	uploadFile
