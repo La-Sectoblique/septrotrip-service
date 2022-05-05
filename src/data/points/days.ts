@@ -69,7 +69,7 @@ export async function updateDay(dayId: number, payload: Partial<DayInput>): Prom
  */
 export async function getPointsByDay(dayId: number): Promise<PointOutput[]> {
 	try {
-		const response = JSON.parse(JSON.stringify(await request(`/dayId/${dayId}/points`, "GET")));
+		const response = JSON.parse(JSON.stringify(await request(`/days/${dayId}/points`, "GET")));
 
 		if(isPointOutputArray(response)) {
 			return response;
