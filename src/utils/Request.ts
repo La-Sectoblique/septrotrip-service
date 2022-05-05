@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, Method } from "axios";
 import InvalidTokenError from "../types/errors/InvalidTokenError";
+import { GenericJsonObject } from "../types/utils/Object";
 import { GeneralBodyFormat } from "../utils/FormData";
 import { generateFormData } from "./Body";
 import { params } from "./Config";
@@ -18,6 +19,12 @@ export async function request(url: string, method: Method, data?: object): Promi
 	log(`${method} ${url}`, "request()");
 
 	if(data) {
+		for(const [key, value] of Object.entries(data)) {
+			if( value === undefined ) {
+				(data as GenericJsonObject)[key] = null;
+			}
+		}
+
 		log(`data : ${JSON.stringify(data)}`, "request()");
 	}
 
