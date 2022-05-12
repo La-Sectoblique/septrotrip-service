@@ -5,63 +5,6 @@ import { isPathOuput, PathInput, PathOutput } from "../../types/models/Path";
 import { request } from "../../utils/Request";
 
 /**
- * Retourne le chemin vers la prochaine étape
- * @param stepId identifiant de l'étape actuelle
- * @returns le chemin vers l'étape suivante
- */
-export async function getPathToNextStep(stepId: number): Promise<PathOutput> {
-
-	try {
-		const response = await request(`/steps/${stepId}/path/after`, "GET");
-
-		if(isPathOuput(response)) {
-			return response;
-		}
-		else {
-			throw new Error(JSON.stringify(response));
-		}
-	}
-	catch(error) {
-
-		if(axios.isAxiosError(error)) {
-			if(error.response?.status === 404) {
-				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
-			}
-		}
-
-		throw error;
-	}
-}
-
-/**
- * Retourne le chemin vers la précédente étape
- * @param stepId identifiant de l'étape actuelle
- * @returns le chemin vers l'étape précédente
- */
-export async function getPathToPreviousStep(stepId: number): Promise<PathOutput> {
-	try {
-		const response = await request(`/steps/${stepId}/path/before`, "GET");
-
-		if(isPathOuput(response)) {
-			return response;
-		}
-		else {
-			throw new Error(JSON.stringify(response));
-		}
-	}
-	catch(error) {
-
-		if(axios.isAxiosError(error)) {
-			if(error.response?.status === 404) {
-				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
-			}
-		}
-
-		throw error;
-	}
-}
-
-/**
  * Retourne le chemin correspondant à l'id donné
  * @param pathId identifiant du chemin
  * @returns chemin correspondant

@@ -176,5 +176,30 @@ export async function getStepDays(stepId: number): Promise<DayOutput[]> {
 
 		throw error;
 	}
+}
 
+export async function updateStepOrder(stepId: number, newIndex: number): Promise<StepOutput[]> {
+	try {
+		const response = JSON.parse(JSON.stringify(await request(`/steps/${stepId}/order`, "PUT", { newOrder: newIndex })));
+
+		if(isStepOutputArray(response)) {
+			return response;
+		}
+		else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+
+		if(axios.isAxiosError(error)) {
+			if(error.response?.status === 404) {
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+			}
+			if(error.response?.status === 400) {
+				throw { message: error.response?.data.message, code: 400, name: "InvalidBodyError" } as InvalidBodyError;
+			}
+		}
+
+		throw error;
+	}
 }
