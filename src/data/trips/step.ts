@@ -1,7 +1,7 @@
 import axios from "axios";
 import InexistantResourceError from "../../types/errors/InexistantResourceError";
 import InvalidBodyError from "../../types/errors/InvalidBodyError";
-import { DayOutput, isDayOuputArray } from "../../types/models/Day";
+import { DayOutput, isDayOutputArray } from "../../types/models/Day";
 import { isStepOutput, StepInput, StepOutput, isStepOutputArray } from "../../types/models/Step";
 import { request } from "../../utils/Request";
 
@@ -159,7 +159,7 @@ export async function getStepDays(stepId: number): Promise<DayOutput[]> {
 	try {
 		const response = JSON.parse(JSON.stringify(await request(`/steps/${stepId}/days`, "GET")));
 
-		if(isDayOuputArray(response)) {
+		if(isDayOutputArray(response)) {
 			return response;
 		}
 		else {
