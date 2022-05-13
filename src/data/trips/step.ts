@@ -178,6 +178,12 @@ export async function getStepDays(stepId: number): Promise<DayOutput[]> {
 	}
 }
 
+/**
+ * Modifie l'ordre des étapes
+ * @param stepId identifiant de l'étape
+ * @param newIndex nouvel index de l'etape
+ * @returns les steps dans le nouvel ordre
+ */
 export async function updateStepOrder(stepId: number, newIndex: number): Promise<StepOutput[]> {
 	try {
 		const response = JSON.parse(JSON.stringify(await request(`/steps/${stepId}/order`, "PUT", { newOrder: newIndex })));
