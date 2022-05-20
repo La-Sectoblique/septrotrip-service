@@ -69,7 +69,7 @@ export async function updatePath(pathId: number, payload: Partial<PathInput>): P
  * @param stepId identifiant de l'étape de destination
  * @returns chemin correspondant
  */
-export async function getPathByStep(stepId: number): Promise<PathOutput> {
+export async function getPathToStep(stepId: number): Promise<PathOutput> {
 	try {
 		const response = await request(`/steps/${stepId}/path`, "GET");
 
