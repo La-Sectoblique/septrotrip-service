@@ -63,3 +63,31 @@ export async function updatePath(pathId: number, payload: Partial<PathInput>): P
 		throw error;
 	}
 }
+
+/**
+ * Obtient le chemin qui va vers l'étape donné
+ * @param stepId identifiant de l'étape de destination
+ * @returns chemin correspondant
+ */
+export async function getPathToStep(stepId: number): Promise<PathOutput> {
+	try {
+		const response = await request(`/steps/${stepId}/path`, "GET");
+
+		if(isPathOuput(response)) {
+			return response;
+		}
+		else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+
+		if(axios.isAxiosError(error)) {
+			if(error.response?.status === 404) {
+				throw { message: error.response?.data.message, code: 404, name: "InexistantResourceError" } as InexistantResourceError;
+			}
+		}
+
+		throw error;
+	}
+}
