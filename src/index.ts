@@ -7,7 +7,7 @@ import { getDayByID, getPointsByDay, updateDay, getDaysByPoint, updatePointDays 
 import { addTodoEntry, deleteTodoEntry, getTodoEntriesByTripId, getTodoEntryById, updateTodoEntry } from "./data/todo/todo";
 import { getPathById, updatePath, getPathToStep } from "./data/trips/path";
 import { deleteSpent, getSpentBeneficiaries, getSpentById, getSpentByTrip, newSpent, updateSpent, updateSpentBeneficiaries } from "./data/spents/spent";
-import { uploadFile } from "./data/trips/file";
+import { uploadFile, deleteFile, getFileLink, getFileMetadata, getTripFiles, modifyFileMetadata } from "./data/trips/file";
 
 import { init, params } from "./utils/Config";
 import Platform from "./utils/Platform";
@@ -90,5 +90,10 @@ export {
 	updateTodoEntry,
 
 	// file
-	uploadFile
+	uploadFile,
+	deleteFile,
+	getFileLink, 
+	getFileMetadata,
+	getTripFiles,
+	modifyFileMetadata
 };
