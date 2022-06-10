@@ -84,7 +84,9 @@ export async function upload(url: string, method: Method, data: FormData | objec
 			headers: {
 				"Content-Type": "multipart/form-data"
 			},
-			data
+			data,
+			// cette fonction est obligatoire pour le client mobile
+			transformRequest: formData => formData 
 		});
 
 		if(response.headers["x-renewed-jwt-token"]) {
