@@ -7,7 +7,7 @@ export function setQueryURL(baseURL: string, queryParams: GenericObjectWithStrin
 
 	let firstParam = true;
 
-	for(const [key, value] of Object.keys(queryParams)) {
+	for(const [key, value] of Object.entries(queryParams)) {
 		resURL = resURL.concat(firstParam ? "?" : "&").concat(`${key}=${value}`);
 
 		if(firstParam) 
