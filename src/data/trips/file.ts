@@ -7,7 +7,7 @@ import { params } from "../../utils/Config";
 import { FileFormat, GeneralBodyFormat } from "../../utils/FormData";
 import { getTripFilesOptions } from "../../utils/Parameters";
 import { request, upload } from "../../utils/Request";
-import { setQueryURL } from "../../utils/ULR";
+import { setQueryURL } from "../../utils/URL";
 
 
 export async function uploadFile(metadata: FileMetadataInput, data: FileFormat): Promise<FileMetadataOutput> {
