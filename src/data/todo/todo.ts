@@ -41,7 +41,7 @@ export async function getTodoEntriesByTripId(tripId: number): Promise<TodoEntryO
  */
 export async function addTodoEntry(entry: TodoEntryInput): Promise<TodoEntryOutput> {
 	try {
-		const response = await request(`/trips/${entry.tripId}/spents`, "POST", entry);
+		const response = await request(`/trips/${entry.tripId}/todo`, "POST", entry);
 
 		if(isTodoEntryOutput(response)) {
 			return response;

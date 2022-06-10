@@ -5,7 +5,9 @@ import { FileMetadataInput, FileMetadataOutput, isFileMetadataOuput, isFileMetad
 import { isApiResponse } from "../../types/utils/Api";
 import { params } from "../../utils/Config";
 import { FileFormat, GeneralBodyFormat } from "../../utils/FormData";
+import { getTripFilesOptions } from "../../utils/Parameters";
 import { request, upload } from "../../utils/Request";
+import { setQueryURL } from "../../utils/ULR";
 
 
 export async function uploadFile(metadata: FileMetadataInput, data: FileFormat): Promise<FileMetadataOutput> {
@@ -39,9 +41,12 @@ export async function uploadFile(metadata: FileMetadataInput, data: FileFormat):
  * @param tripId identifiant du voyage
  * @returns toutes les métadonnées des fichiers du voyage
  */
-export async function getTripFiles(tripId: number): Promise<FileMetadataOutput[]> {
+export async function getTripFiles(tripId: number, options: getTripFilesOptions = {}): Promise<FileMetadataOutput[]> {
 	try {
-		const response = JSON.parse(JSON.stringify(await request(`/trips/${tripId}/files`, "GET")));
+
+		const url = setQueryURL(`/trips/${tripId}/files`, options);
+
+		const response = JSON.parse(JSON.stringify(await request(url, "GET")));
 
 		if(isFileMetadataOuputArray(response)) {
 			return response;
