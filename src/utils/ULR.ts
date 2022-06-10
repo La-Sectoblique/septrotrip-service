@@ -1,7 +1,7 @@
-import { GenericObjectWithStrings } from "../types/utils/Object";
+import { GenericObjectWithStringsAndNumber } from "../types/utils/Object";
 
 
-export function setQueryURL(baseURL: string, queryParams: GenericObjectWithStrings): string {
+export function setQueryURL(baseURL: string, queryParams: GenericObjectWithStringsAndNumber): string {
 
 	let resURL = baseURL;
 
