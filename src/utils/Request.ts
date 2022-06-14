@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, Method } from "axios";
 import InvalidTokenError from "../types/errors/InvalidTokenError";
+import UnauthorizedError from "../types/errors/UnauthorizedError";
 import { GenericJsonObject } from "../types/utils/Object";
 import { GeneralBodyFormat } from "../utils/FormData";
 import { generateFormData } from "./Body";
@@ -47,6 +48,9 @@ export async function request(url: string, method: Method, data?: object): Promi
 		if(axios.isAxiosError(error)) {
 			if(error.response?.status === 401) {
 				throw { message: error.response?.data.message, code: 401, name: "InvalidTokenError" } as InvalidTokenError;
+			}
+			if(error.response?.status === 403) {
+				throw { message: error.response?.data.message, code: 403, name: "UnauthorizedError" } as UnauthorizedError;
 			}
 		}
 
@@ -100,6 +104,9 @@ export async function upload(url: string, method: Method, data: FormData | objec
 		if(axios.isAxiosError(error)) {
 			if(error.response?.status === 401) {
 				throw { message: error.response?.data.message, code: 401, name: "InvalidTokenError" } as InvalidTokenError;
+			}
+			if(error.response?.status === 403) {
+				throw { message: error.response?.data.message, code: 403, name: "UnauthorizedError" } as UnauthorizedError;
 			}
 		}
 
