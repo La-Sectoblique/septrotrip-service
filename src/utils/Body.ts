@@ -6,6 +6,8 @@ export function generateFormData(data: GeneralBodyFormat): FormData {
 
 	for(const key of Object.keys(data)) {
 
+		if(!data[key]) continue;
+
 		const value: string | number | boolean | object | FileFormat = data[key];
 
 		if(typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
