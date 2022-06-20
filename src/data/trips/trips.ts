@@ -3,7 +3,7 @@ import InexistantResourceError from "../../types/errors/InexistantResourceError"
 import InvalidBodyError from "../../types/errors/InvalidBodyError";
 import NoIdProvidedError from "../../types/errors/NoIdProvidedError";
 import { isTripOutput, isTripOutputArray, TripInput, TripOutput } from "../../types/models/Trip";
-import { isUserOutputArray, UserOutput } from "../../types/models/User";
+import { Author, isAuthor, isUserOutputArray, UserOutput } from "../../types/models/User";
 import { ApiResponse, isApiResponse } from "../../types/utils/Api";
 import { request } from "../../utils/Request";
 
@@ -184,6 +184,33 @@ export async function getTravelers(tripId: number): Promise<UserOutput[]> {
 		throw error;	
 	}
 }
+
+/**
+ * Retourne l'auteur d'un voyage
+ * @param tripId identifiant du voyage
+ */
+export async function getAuthor(tripId: number): Promise<Author> {
+	try {
+		const response = await request(`/trips/${tripId}/author`, "GET");
+
+		if(isAuthor(response)) {
+			return response;
+		}
+		else {
+			throw new Error(JSON.stringify(response));
+		}
+	}
+	catch(error) {
+		if(axios.isAxiosError(error)) {
+			if(error.response?.status === 400) {
+				throw { message: error.response?.data.message, code: 400, name: "InvalidBodyError" } as InvalidBodyError;
+			}
+		}
+
+		throw error;	
+	}
+}
+
 
 /**
  * Ajoute un voyageur au voyage
